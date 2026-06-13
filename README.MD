@@ -1,18 +1,15 @@
 # Git/GitHub Repository
 
-This repository contains Python-based implementations, developed as part of **Unit 2** for the Programming course (Q2-2>
+This repository contains Python-based implementations, developed as part of Unit 2 for the Programming course (Q2-2026). The objective of this assignment is to establish a professional development environment using Git for version control and GitHub for remote collaboration.
 
 ---
 
 ## Project Description
 
-The included Python script (`cw05.py`) is a text-based game inspired by "The Password Game." It challenges the user to >
+The included Python script (`cw07.py`) is a digit verificator It challenges the user to validate a sequence of numbers under certain rules
 
 The program utilizes a `while` loop to continuously check the input against requirements such as:
-* **Length Constraints:** Must be at least 8 characters long and its total length must be a prime number.
-* **Character Diversity:** Requires at least one uppercase letter, one lowercase letter, one digit, and one special cha>
-* **Mathematical Validation:** The sum of all numerical digits within the password must be greater than or equal to 25.
-* **Thematic Rule:** Must contain the current month ("june", case-insensitive).
+* **Integer verification:** Must be a integer, special and alpahbetical characters are not accepted.
 
 ---
 
@@ -34,7 +31,8 @@ git clone [https://github.com/](https://github.com/)[Your-GitHub-Username]/UPY-P
 
 3. Navigate to the project directory and execute the script:
 ```bash
-python cw05.py
+cd CW07
+python cw07.py
 ```
 
 ---
