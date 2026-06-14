@@ -22,6 +22,7 @@ h = (b - a) / n
 shift = 0
 trap = 0
 constant = 0
+safety_function = f_x
 
 if method == "RRM":
     shift = 1
@@ -38,7 +39,11 @@ else:
 
 for i in range(0 + shift + trap, n + shift):
     xi = i * h + a
-    height = eval(f_x.replace("x", str(xi + constant)))
+    if "sin" in f_x:
+        safety_function = f_x.replace("sin(x)", str(math.sin(xi)))
+    if "cos" in f_x:
+        safety_function = f_x.replace("cos(x)", str(math.cos(xi)))
+    height = eval(safety_function.replace("x", str(xi + constant)))
     if method == "TM":
         area += height * 2
     else:
