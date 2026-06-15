@@ -1,0 +1,60 @@
+#INPUT
+GET a, b, f_x, method FROM user
+
+#PROCESS 
+IF "pi" IN a_input THEN
+    a <- EVALUATE(REPLACE "pi" WITH "3.14159" IN a_input)
+ELSE
+    a <- CONVERT_TO_FLOAT(a_input)
+ENDIF
+
+IF "pi" IN b_input THEN
+    b <- EVALUATE(REPLACE "pi" WITH "3.14159" IN b_input)
+ELSE
+    b <- CONVERT_TO_FLOAT(b_input)
+ENDIF
+
+n <- 1000
+h <- (b-a)/n
+area <- 0.0
+shift <- 0
+constant <- 0
+shift <- 0
+trap <- 0
+safety_function <- 0
+
+#METHODS
+IF method IS EQUAL "RRM" THEN
+    shift <- 1
+ELSE IF method = "TM":
+	trap = 1
+	x0 = a
+	xn = b
+	f_x0 = EVALUATE(REPLACE "x" WITH "x0" IN f_x0)
+	f_xn = EVALUATE(REPLACE "x" WITH "xn" IN f_xn)
+ELIF method IS EQUAL "MRM" THEN
+    constant <- h/2
+ELSE
+	pass
+ENDIF
+
+FOR i IN RANGE (0 + shift + trap, n + shift) DO
+        xi <- a + i * h
+	IF "sin" in f_x
+		safety_function <- REPLAXE "sin(x)" WITH "math.sin(xi)"
+	ENDIF
+	IF "cos" in f_x
+		safety_function <- REPLAXE "cos(x)" WITH "math.cos(xi)"
+	ENDIF
+	IF method equals "TM"
+		area <- 2 * f_x(xi)
+	ELSE:
+	        area <- area + h * f_x(xi + constant)
+	ENDIF
+ENDFOR
+
+If method equal "TM"
+	area <- (area + f_xo + f_xn) * (h/2)
+
+#OUTPUT
+DISPLAY "The integration of ", f_x, " is ", area

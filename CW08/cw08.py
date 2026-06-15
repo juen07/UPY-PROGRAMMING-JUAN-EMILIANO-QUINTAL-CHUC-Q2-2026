@@ -43,6 +43,7 @@ for i in range(0 + shift + trap, n + shift):
         safety_function = f_x.replace("sin(x)", str(math.sin(xi)))
     if "cos" in f_x:
         safety_function = f_x.replace("cos(x)", str(math.cos(xi)))
+        
     height = eval(safety_function.replace("x", str(xi + constant)))
     if method == "TM":
         area += height * 2
