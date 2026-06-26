@@ -1,0 +1,157 @@
+[10:44 a. m., 26/6/2026] Roman: Algoritmo SchoolManagementSystem
+    // ==========================================
+    // 0. DEFINICIÓN DE VARIABLES (Perfil Estricto)
+    // ==========================================
+    Definir usuarios, passwords, roles, nombres Como Caracter
+    Definir materias Como Caracter
+    Definir notas_jperez Como Real
+    Definir log_in, salir_profe Como Logico
+    Definir usuario_actual, rol_actual, nombre_actual Como Caracter
+    Definir input_user, input_pass, student_to_grade, subject_to_grade, confirm Como Caracter
+    Definir new_grade Como Real
+    Definir i Como Entero
+
+    // ==========================================
+    // 1. INICIALIZACIÓN DE DATOS
+    // ==========================================
+    Dimension usuarios[3]
+    Dimension passwords[3]…
+[10:45 a. m., 26/6/2026] Roman: # INITIAL DATA SETUP
+users <- collection of system users with their passwords, roles, and full names
+subjects <- list of academic subjects
+notes <- collection of grades for each student across all subjects
+
+# ACCESS
+log_in <- False
+current_user <- ""
+
+Repeat while log_in is False:
+    INPUT
+    Get username from user   # str
+    Get password from user   # str
+    
+    PROCESS
+    Check if username exists in users and password matches
+    If true:
+        log_in <- True
+        current_user <- username
+    If false:
+        OUTPUT
+        Display "Wrong user/password!"
+
+# IDENTIFICATION
+PROCESS
+user_info <- retrieve details for current_user
+role <- retrieve role from user_info
+name <- retrieve name from user_info
+
+OUTPUT
+Display "Welcome, " + name + " (" + role + ")"
+
+# ROLE FILTERING
+
+# 1. If role is "student":
+OUTPUT
+Display "School Report" header
+
+PROCESS
+approved <- empty collection
+pending <- empty collection
+
+For each subj in subjects:
+    grade <- retrieve note for current_user in subj
+    
+    OUTPUT
+    Display subj and grade
+    
+    PROCESS
+    If grade is 8.0 or higher:
+        Add subj to approved
+    Else:
+        Add subj to pending
+
+OUTPUT
+Display "Approved: " + approved
+Display "Pending: " + pending
+
+# 2. If role is "professor":
+Repeat forever:
+    OUTPUT
+    Display "Students" header
+    For each user in users:
+        If user's role is "student":
+            Display username and student's full name
+            
+    INPUT
+    Get student_to_grade from user   # str
+    
+    PROCESS
+    If student_to_grade does not exist or is not a student:
+        Stop and exit the loop
+        
+    OUTPUT
+    Display "Subjects" header
+    For each subj in subjects:
+        Display subj
+        
+    INPUT
+    Get subject_to_grade from user   # str
+    Get new_grade from user          # float
+    
+    PROCESS
+    If subject_to_grade is a valid subject:
+        old_grade <- retrieve note for student_to_grade in subject_to_grade
+        
+        OUTPUT
+        Display "Do you confirm (yes/no)?"
+        Display subject_to_grade + ": " + old_grade + " ==> " + new_grade
+        
+        INPUT
+        Get confirm from user            # str
+        
+        PROCESS
+        If confirm is "yes":
+            Update note for student_to_grade in subject_to_grade with new_grade
+            
+            OUTPUT
+            Display "Grade updated!" and the student's updated grades
+        Else:
+            OUTPUT
+            Display "Write other thing to exit"
+
+# 3. If role is "coordinator":
+OUTPUT
+Display "Professors" header
+For each user in users:
+    If user's role is "professor":
+        Display username and professor's full name
+        
+OUTPUT
+Display "Students" header
+For each user in users:
+    If user's role is "student":
+        Display username and student's full name
+        
+OUTPUT
+Display "Records" header
+
+PROCESS
+student_users <- list of all usernames that have the "student" role
+
+OUTPUT
+Display table header showing "SUBJECTS" and all student usernames
+Display separator line
+
+PROCESS
+For each subj in subjects:
+    subj_trunc <- first 13 characters of subj
+    row <- subj_trunc
+    
+    grades <- empty list
+    For each student in student_users:
+        Add student's note for subj to grades
+        
+    Combine row and grades into a single line
+    
+    OUTPUT
+    Display the combined line
