@@ -1,0 +1,54 @@
+Algoritmo ConjugadorVerbos
+    Dimension pronombres[6]
+    pronombres[1] <- "Yo"
+    pronombres[2] <- "Tu"
+    pronombres[3] <- "El"
+    pronombres[4] <- "Nosotros"
+    pronombres[5] <- "Vosotros"
+    pronombres[6] <- "Ellos"
+    
+    Dimension conjugations[6]
+    
+    Definir verb, stem, ending Como Caracter
+    Definir index Como Entero
+    
+    Escribir "Ingrese el verbo en español: "
+    Leer verb
+    
+    stem <- Subcadena(verb, 1, Longitud(verb) - 2)
+    ending <- Subcadena(verb, Longitud(verb) - 1, Longitud(verb))
+    
+    // Cambiamos el Segun por Si-Entonces clásicos para asegurar el diagrama
+    Si ending = "ar" Entonces
+        conjugations[1] <- "o"
+        conjugations[2] <- "as"
+        conjugations[3] <- "a"
+        conjugations[4] <- "amos"
+        conjugations[5] <- "ais"
+        conjugations[6] <- "an"
+    Sino
+        Si ending = "er" Entonces
+            conjugations[1] <- "o"
+            conjugations[2] <- "es"
+            conjugations[3] <- "e"
+            conjugations[4] <- "emos"
+            conjugations[5] <- "eis"
+            conjugations[6] <- "en"
+        Sino
+            Si ending = "ir" Entonces
+                conjugations[1] <- "o"
+                conjugations[2] <- "es"
+                conjugations[3] <- "e"
+                conjugations[4] <- "imos"
+                conjugations[5] <- "is"
+                conjugations[6] <- "en"
+            Sino
+                Escribir "Terminación no válida."
+            FinSi
+        FinSi
+    FinSi
+    
+    Para index <- 1 Hasta 6 Con Paso 1 Hacer
+        Escribir pronombres[index], " ", stem, conjugations[index]
+    FinPara
+FinAlgoritmo
