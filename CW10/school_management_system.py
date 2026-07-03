@@ -208,7 +208,7 @@ while True:
                 print(f"{subject1:10.10}|", end="")
                 for student in notes:
                     grade = notes[student][subject1]
-                    print(f"{grade:10.10}|", end="")
+                    print(f"{grade:^10}|", end="")
                 print("")
         exit =  input("Type 'end' to exit: ")
         if exit == "end":
