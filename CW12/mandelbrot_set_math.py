@@ -1,44 +1,30 @@
-from PIL import Image
-
-
 config = {}
 
-file = open("config1.txt", "r")
-lines = file.readlines()
-for line in lines:
+file = open("config2.txt", "r")
+
+for line in file:
     parameter, value = line.strip().split("=")
     config[parameter] = float(value) if "." in value else int(value)
 file.close()
 
-print(config)
+width, height, max_iter = config["ancho"], config["alto"], config["max_iter"]
 
-archivo = open("mandelbrot.csv", "r")
-lineas = archivo.readlines()
-archivo.close()
+output = open("mandelbrot.csv", "w")
+output.write("row,column,iterations\n")
 
-#NO OLVIDAR QUITAR ENCABEZASDOS
-lineas.pop(0)
-
-#DESEMPAQUETAR VARIABLES
-max_iter= config["max_iter"]
-ancho, alto = config["ancho"], config["alto"]
-
-
-img = Image.new("HSV", (ancho,alto))
-
-for linea in lineas:
-    row, column, iterations = linea.strip().split(",")
-    iterations = int(iterations)
-    row = int(row)
-    column = int(column)
-    
-    if iterations == max_iter:
-        brillo = 40
-    else:
-        brillo = int((iterations/ max_iter) * 255)
+for row in range(height):
+    for column in range(width):
+        real = config["real_min"] + (column / width) * (config["real_max"] - config["real_min"])
+        imag = config["imag_min"] + (row / height) * (config["imag_max"] - config["imag_min"])
+        c = complex(real, imag)
         
-    img.putpixel((column,row), (brillo,255,255))
-    
-img_rgb = img.convert("RGB")
-img_rgb.save("mandelbrot.png")
-print("DONE")
+        z = 0 + 0j
+        iterations = 0
+        
+        while (abs(z) <=2) and (iterations < max_iter):
+            z = z * z + c
+            iterations += 1
+        
+        output.write(f"{row},{column},{iterations}\n")
+
+print("Done")
