@@ -4,4 +4,4 @@ real_min=-2.0
 real_max=1.0
 imag_min=-1.5
 imag_max=1.5
-max_iter=100
+max_iter=1000

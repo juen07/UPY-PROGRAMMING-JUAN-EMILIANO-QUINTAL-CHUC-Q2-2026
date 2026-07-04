@@ -1,0 +1,55 @@
+Algoritmo MandelbrotSet
+	// -------------- DECLARACIÓN DE VARIABLES --------------
+	Definir ancho, alto, max_iter Como Entero
+	Definir real_min, real_max, imag_min, imag_max Como Real
+	Definir real_c, imag_c Como Real
+	Definir real_z, imag_z, real_z_nuevo Como Real
+	Definir modulo Como Real
+	Definir fila, columna, iteraciones Como Entero
+	// -------------- ENTRADA (simulación de config.txt) --------------
+	Escribir '=== Parámetros de configuración ==='
+	Escribir 'Ingrese el ancho de la imagen (ancho): '
+	Leer ancho
+	Escribir 'Ingrese el alto de la imagen (alto): '
+	Leer alto
+	Escribir 'Ingrese el número máximo de iteraciones (max_iter): '
+	Leer max_iter
+	Escribir 'Ingrese el límite izquierdo del plano real (real_min): '
+	Leer real_min
+	Escribir 'Ingrese el límite derecho del plano real (real_max): '
+	Leer real_max
+	Escribir 'Ingrese el límite inferior del plano imaginario (imag_min): '
+	Leer imag_min
+	Escribir 'Ingrese el límite superior del plano imaginario (imag_max): '
+	Leer imag_max
+	// -------------- PROCESO --------------
+	// (En el programa original los resultados se escriben en mandelbrot.csv)
+	Escribir 'Procesando conjunto de Mandelbrot...'
+	Para fila<-0 Hasta alto-1 Con Paso 1 Hacer
+		Para columna<-0 Hasta ancho-1 Con Paso 1 Hacer
+			// Mapear píxel (columna, fila) al plano complejo ? c = real_c + imag_c*i
+			real_c <- real_min+(columna/ancho)*(real_max-real_min)
+			imag_c <- imag_min+(fila/alto)*(imag_max-imag_min)
+			// Inicializar z = 0 + 0i
+			real_z <- 0
+			imag_z <- 0
+			iteraciones <- 0
+			// Calcular módulo de z:  O z O  = sqrt(real_z^2 + imag_z^2)
+			modulo <- raiz(real_z^2+imag_z^2)
+			// Iterar z = z^2 + c mientras  O z O  <= 2 y no se supere max_iter
+			Mientras (modulo<=2) Y (iteraciones<max_iter) Hacer
+				// z^2 = (real_z + imag_z*i)^2
+				// = (real_z^2 - imag_z^2) + (2*real_z*imag_z)*i
+				real_z_nuevo <- real_z^2-imag_z^2+real_c
+				imag_z <- 2*real_z*imag_z+imag_c
+				real_z <- real_z_nuevo
+				iteraciones <- iteraciones+1
+				modulo <- raiz(real_z^2+imag_z^2)
+			FinMientras
+			// Guardar resultado (fila, columna, iteraciones) en CSV
+			Escribir fila, ',', columna, ',', iteraciones
+		FinPara
+	FinPara
+	// -------------- SALIDA --------------
+	Escribir 'Listo. Datos generados para ', alto*ancho, ' píxeles.'
+FinAlgoritmo

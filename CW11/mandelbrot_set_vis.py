@@ -26,3 +26,5 @@ for row in range(height):
             iterations += 1
         
         output.write(f"{row},{column},{iterations}\n")
+
+print("Done")
