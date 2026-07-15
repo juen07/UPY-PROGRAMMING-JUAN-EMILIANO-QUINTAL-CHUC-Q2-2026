@@ -7,7 +7,7 @@ try:
     check = False
 
 except ValueError:
-    print("Rol no valido")
+    print("Rol inválido: No tiene el formati xxxxxxxxx-x")
 
 else:
     try:
