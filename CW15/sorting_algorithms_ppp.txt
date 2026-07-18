@@ -1,0 +1,127 @@
+Función DibujarBarras(numeros,n,sel1,sel2)
+	Definir i Como Entero
+	Escribir '--- Estado actual del arreglo ---'
+	Para i<-0 Hasta n-1 Con Paso 1 Hacer
+		Si i=sel1 O i=sel2 Entonces
+			Escribir '[*] Pos ', i, ': ', numeros[i]
+		SiNo
+			Escribir '[ ] Pos ', i, ': ', numeros[i]
+		FinSi
+	FinPara
+FinFunción
+
+// -----------------------------------------------------------------------
+// SubProceso: BubbleSort
+// Ordena el arreglo comparando e intercambiando elementos adyacentes
+// -----------------------------------------------------------------------
+Función BubbleSort(numeros,n)
+	Definir i, j, temp Como Entero
+	Para i<-0 Hasta n-1 Con Paso 1 Hacer
+		Para j<-0 Hasta n-i-2 Con Paso 1 Hacer
+			// Mostrar estado antes del posible intercambio
+			DibujarBarras(numeros,n,j,j+1)
+			Si numeros[j]>numeros[j+1] Entonces
+				// Intercambiar
+				temp <- numeros[j]
+				numeros[j] <- numeros[j+1]
+				numeros[j+1]<-temp
+				// Mostrar estado después del intercambio
+				DibujarBarras(numeros,n,j,j+1)
+			FinSi
+		FinPara
+	FinPara
+	// Mostrar arreglo final ordenado
+	DibujarBarras(numeros,n,-1,-1)
+FinFunción
+
+// -----------------------------------------------------------------------
+// SubProceso: SelectionSort
+// Encuentra el mínimo en cada pasada y lo coloca en su posición correcta
+// -----------------------------------------------------------------------
+Función SelectionSort(numeros,n)
+	Definir i, j, min_index, temp Como Entero
+	Para i<-0 Hasta n-1 Con Paso 1 Hacer
+		min_index <- i
+		Para j<-i+1 Hasta n-1 Con Paso 1 Hacer
+			DibujarBarras(numeros,n,i,j)
+			Si numeros[j]<numeros[min_index] Entonces
+				min_index <- j
+			FinSi
+		FinPara
+		// Intercambiar el mínimo encontrado con la posición i
+		temp <- numeros[i]
+		numeros[i] <- numeros[min_index]
+		numeros[min_index] <- temp
+	FinPara
+	// Mostrar arreglo final ordenado
+	DibujarBarras(numeros,n,-1,-1)
+FinFunción
+
+// -----------------------------------------------------------------------
+// SubProceso: InsertionSort
+// Inserta cada elemento en su posición correcta dentro de la parte ordenada
+// -----------------------------------------------------------------------
+Función InsertionSort(numeros,n)
+	Definir i, temp Como Entero
+	Para i<-0 Hasta n-1 Con Paso 1 Hacer
+		DibujarBarras(numeros,n,i-1,i)
+		Mientras i>0 Hacer
+			Si numeros[i-1]>numeros[i] Entonces
+				// Intercambiar
+				temp <- numeros[i-1]
+				numeros[i-1]<-numeros[i]
+				numeros[i] <- temp
+			FinSi
+			DibujarBarras(numeros,n,i-1,i)
+			i <- i-1
+		FinMientras
+	FinPara
+	// Mostrar arreglo final ordenado
+	DibujarBarras(numeros,n,-1,-1)
+FinFunción
+
+// =====================================================================
+// PROCESO PRINCIPAL
+// =====================================================================
+Algoritmo SortingAlgorithms
+	Definir numeros Como Entero
+	Dimensionar numeros(10)
+	Definir n, i Como Entero
+	Definir opcion Como Cadena
+	n <- 10
+	// -------------- ENTRADA: llenar arreglo con valores aleatorios --------------
+	Escribir 'Generando arreglo aleatorio de ', n, ' elementos...'
+	Para i<-0 Hasta n-1 Con Paso 1 Hacer
+		numeros[i] <- azar(100)
+	FinPara
+	// Mostrar arreglo sin ordenar
+	Escribir 'Sin ordenar:'
+	Para i<-0 Hasta n-1 Con Paso 1 Hacer
+		Escribir '  Pos ', i, ': ', numeros[i]
+	FinPara
+	// -------------- SELECCIÓN DEL ALGORITMO --------------
+	Escribir 'Selecciona el algoritmo de ordenamiento:'
+	Escribir '  BS = Bubble Sort'
+	Escribir '  SS = Selection Sort'
+	Escribir '  IS = Insertion Sort'
+	Leer opcion
+	// -------------- PROCESO --------------
+	Si opcion='BS' Entonces
+		BubbleSort(numeros,n)
+	SiNo
+		Si opcion='SS' Entonces
+			SelectionSort(numeros,n)
+		SiNo
+			Si opcion='IS' Entonces
+				InsertionSort(numeros,n)
+			SiNo
+				Escribir 'Opción no válida. Usa BS, SS o IS.'
+			FinSi
+		FinSi
+	FinSi
+	// -------------- SALIDA: arreglo ordenado --------------
+	Escribir 'Ordenado:'
+	Para i<-0 Hasta n-1 Con Paso 1 Hacer
+		Escribir '  Pos ', i, ': ', numeros[i]
+	FinPara
+FinAlgoritmo
