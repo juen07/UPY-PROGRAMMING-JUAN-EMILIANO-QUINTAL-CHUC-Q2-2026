@@ -164,13 +164,13 @@ while True:
                 try:
                     old_grade = notes[student]
                 except KeyError:
-                    print(KeyError("KeyError: This student do not exist"))
+                    print(KeyError("This student do not exist"))
                     sys.exit()
 
                 try:
                     old_grade = old_grade[subject_to_grade]
                 except KeyError:
-                    print(KeyError("KeyError: This subject do not exist"))
+                    print(KeyError("This subject do not exist"))
                     sys.exit()
 
 
