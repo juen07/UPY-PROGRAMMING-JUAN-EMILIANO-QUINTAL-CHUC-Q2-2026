@@ -1,0 +1,72 @@
+Función LeerConfiguracion(max_iter,ancho,alto)
+	Definir max_iter, ancho, alto Como Entero
+	Escribir '=== Lectura de config2.txt ==='
+	Escribir 'Ingresa el número máximo de iteraciones (max_iter): '
+	Leer max_iter
+	Escribir 'Ingresa el ancho de la imagen en píxeles (ancho): '
+	Leer ancho
+	Escribir 'Ingresa el alto de la imagen en píxeles (alto): '
+	Leer alto
+FinFunción
+
+
+Función brillo <- CalcularBrillo(iteraciones,max_iter)
+	Definir brillo Como Entero
+	Definir max_iter, iteraciones Como Entero
+	Si iteraciones=max_iter Entonces
+		brillo <- 0
+	SiNo
+		brillo <- Trunc((iteraciones/max_iter)*255)
+	FinSi
+FinFunción
+
+// =====================================================================
+// PROCESS
+// =====================================================================
+Algoritmo VisualizacionMandelbrot
+	Definir max_iter, ancho, alto Como Entero
+	Definir fila, columna, iteraciones, brillo Como Entero
+	Definir linea Como Cadena
+	Definir totalPixeles, pixelesProcesados Como Entero
+	// -------------- ENTRADA: Configuración --------------
+	Escribir '=== Leyendo configuración desde config2.txt ==='
+	Escribir 'Ingresa el número máximo de iteraciones (max_iter): '
+	Leer max_iter
+	Escribir 'Ingresa el ancho de la imagen en píxeles (ancho): '
+	Leer ancho
+	Escribir 'Ingresa el alto de la imagen en píxeles (alto): '
+	Leer alto
+	totalPixeles <- ancho*alto
+	pixelesProcesados <- 0
+	Escribir ''
+	Escribir '=== Leyendo datos desde mandelbrot.csv ==='
+	Escribir '(Se omite la primera línea de encabezado: row,column,iterations)'
+	Escribir ''
+
+
+	Escribir 'Procesando ', totalPixeles, ' píxeles...'
+	Para fila<-0 Hasta alto-1 Con Paso 1 Hacer
+		Para columna<-0 Hasta ancho-1 Con Paso 1 Hacer
+			// Simula leer la línea: "fila,columna,iteraciones" del CSV
+			Escribir 'Ingresa las iteraciones para el píxel (', fila, ',', columna, '): '
+			Leer iteraciones
+			// Mapear iteraciones a brillo (0-255)
+			Si iteraciones=max_iter Entonces
+				// El punto pertenece al conjunto de Mandelbrot ? negro
+				brillo <- 0
+			SiNo
+				// El punto escapa ? brillo proporcional a la velocidad de escape
+				brillo <- Trunc((iteraciones/max_iter)*255)
+			FinSi
+			// Asignar color al píxel (simulado: en Python sería img.putpixel)
+			// Color HSV = (brillo, 255, 255) ? convertido a RGB al guardar
+			Escribir 'Píxel (', columna, ',', fila, ') ? Brillo: ', brillo, ' | Color HSV: (', brillo, ', 255, 255)'
+			pixelesProcesados <- pixelesProcesados+1
+		FinPara
+	FinPara
+	// -------------- SALIDA --------------
+	Escribir ''
+	Escribir 'Total de píxeles procesados: ', pixelesProcesados
+	Escribir 'Imagen guardada como: mandelbrot_valle.png'
+	Escribir 'LISTO'
+FinAlgoritmo
