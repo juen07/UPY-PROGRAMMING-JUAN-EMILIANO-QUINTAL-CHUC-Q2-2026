@@ -1,0 +1,221 @@
+SubProceso resultado <- Recursiva(n)
+    Definir n Como Entero
+    Definir resultado Como Caracter
+
+    Si n < 0 Entonces
+        resultado <- "Error: El número no puede ser negativo."
+    SiNo
+        Si n = 0 Entonces
+            resultado <- "Done!"
+        SiNo
+            Escribir n
+            resultado <- Recursiva(n - 1)
+        FinSi
+    FinSi
+FinSubProceso
+
+
+// -----------------------------------------------------------------------
+// SubProceso: Fibonacci
+// Retorna el n-ésimo número de la serie de Fibonacci
+// -----------------------------------------------------------------------
+SubProceso resultado <- Fibonacci(n)
+    Definir n, resultado Como Entero
+
+    Si n < 0 Entonces
+        Escribir "Error: Fibonacci no está definido para números negativos."
+        resultado <- -1
+    SiNo
+        Si n = 0 O n = 1 Entonces
+            resultado <- n
+        SiNo
+            resultado <- Fibonacci(n - 1) + Fibonacci(n - 2)
+        FinSi
+    FinSi
+FinSubProceso
+
+
+// -----------------------------------------------------------------------
+// SubProceso: Factorial
+// Retorna el factorial de n (n!)
+// -----------------------------------------------------------------------
+SubProceso resultado <- Factorial(n)
+    Definir n, resultado Como Entero
+
+    Si n < 0 Entonces
+        Escribir "Error: El factorial no está definido para números negativos."
+        resultado <- -1
+    SiNo
+        Si n = 0 O n = 1 Entonces
+            resultado <- 1
+        SiNo
+            resultado <- Factorial(n - 1) * n
+        FinSi
+    FinSi
+FinSubProceso
+
+
+// -----------------------------------------------------------------------
+// SubProceso: MultiplicacionRecursiva
+// Calcula n * m mediante sumas recursivas sucesivas
+// -----------------------------------------------------------------------
+SubProceso resultado <- MultiplicacionRecursiva(n, m)
+    Definir n, m, resultado Como Entero
+
+    Si m < 0 Entonces
+        Escribir "Error: El multiplicador (m) no puede ser negativo."
+        resultado <- -1
+    SiNo
+        Si m = 0 Entonces
+            resultado <- 0
+        SiNo
+            resultado <- MultiplicacionRecursiva(n, m - 1) + n
+        FinSi
+    FinSi
+FinSubProceso
+
+
+// -----------------------------------------------------------------------
+// SubProceso: DivisionEnteraRecursiva
+// Calcula dividendo / divisor mediante restas recursivas sucesivas
+// -----------------------------------------------------------------------
+SubProceso resultado <- DivisionEnteraRecursiva(dividendo, divisor)
+    Definir dividendo, divisor, resultado Como Entero
+
+    Si divisor = 0 Entonces
+        Escribir "Error: No se puede dividir entre cero."
+        resultado <- -1
+    SiNo
+        Si dividendo < 0 O divisor < 0 Entonces
+            Escribir "Error: Esta implementación es solo para números positivos."
+            resultado <- -1
+        SiNo
+            Si dividendo - divisor < 0 Entonces
+                resultado <- 0
+            SiNo
+                resultado <- DivisionEnteraRecursiva(dividendo - divisor, divisor) + 1
+            FinSi
+        FinSi
+    FinSi
+FinSubProceso
+
+
+// -----------------------------------------------------------------------
+// SubProceso: PotenciaRecursiva
+// Calcula base ^ exponente de forma recursiva
+// -----------------------------------------------------------------------
+SubProceso resultado <- PotenciaRecursiva(base, exponente)
+    Definir exponente Como Entero
+    Definir base, resultado Como Real
+
+    Si exponente < 0 Entonces
+        Escribir "Error: No se admiten exponentes negativos en esta versión."
+        resultado <- -1
+    SiNo
+        Si exponente = 0 Entonces
+            resultado <- 1
+        SiNo
+            resultado <- PotenciaRecursiva(base, exponente - 1) * base
+        FinSi
+    FinSi
+FinSubProceso
+
+
+// -----------------------------------------------------------------------
+// SubProceso: SerieCollatz
+// Imprime la serie de Collatz a partir de n hasta llegar a 1
+// -----------------------------------------------------------------------
+SubProceso resultado <- SerieCollatz(n)
+    Definir n, resultado Como Entero
+
+    Si n <= 0 Entonces
+        Escribir "Error: La serie de Collatz solo aplica para enteros positivos mayores a 0."
+        resultado <- -1
+    SiNo
+        Si n = 1 Entonces
+            Escribir "END!"
+            resultado <- 0
+        SiNo
+            Si n MOD 2 = 0 Entonces
+                Escribir n / 2
+                resultado <- SerieCollatz(n / 2)
+            SiNo
+                Escribir 3 * n + 1
+                resultado <- SerieCollatz(3 * n + 1)
+            FinSi
+        FinSi
+    FinSi
+FinSubProceso
+
+
+// =====================================================================
+// PROCESO PRINCIPAL
+// =====================================================================
+Proceso FuncionesRecursivas
+
+    Definir n, m, dividendo, divisor, exponente Como Entero
+    Definir base Como Real
+    Definir resEntero Como Entero
+    Definir resTexto Como Caracter
+
+    // -------------- Probar Recursiva --------------
+    Escribir "--- Probando Recursiva ---"
+    Escribir "Ingresa un valor para n: "
+    Leer n
+    resTexto <- Recursiva(n)
+    Escribir resTexto
+
+    // -------------- Probar Fibonacci --------------
+    Escribir ""
+    Escribir "--- Probando Fibonacci ---"
+    Escribir "Ingresa un valor para n: "
+    Leer n
+    resEntero <- Fibonacci(n)
+    Escribir "Fibonacci(", n, ") = ", resEntero
+
+    // -------------- Probar Factorial --------------
+    Escribir ""
+    Escribir "--- Probando Factorial ---"
+    Escribir "Ingresa un valor para n: "
+    Leer n
+    resEntero <- Factorial(n)
+    Escribir "Factorial(", n, ") = ", resEntero
+
+    // -------------- Probar MultiplicacionRecursiva --------------
+    Escribir ""
+    Escribir "--- Probando Multiplicacion Recursiva ---"
+    Escribir "Ingresa el valor de n: "
+    Leer n
+    Escribir "Ingresa el valor de m: "
+    Leer m
+    resEntero <- MultiplicacionRecursiva(n, m)
+    Escribir n, " x ", m, " = ", resEntero
+
+    // -------------- Probar DivisionEnteraRecursiva --------------
+    Escribir ""
+    Escribir "--- Probando Division Entera Recursiva ---"
+    Escribir "Ingresa el dividendo: "
+    Leer dividendo
+    Escribir "Ingresa el divisor: "
+    Leer divisor
+    resEntero <- DivisionEnteraRecursiva(dividendo, divisor)
+    Escribir dividendo, " / ", divisor, " = ", resEntero
+
+    // -------------- Probar PotenciaRecursiva --------------
+    Escribir ""
+    Escribir "--- Probando Potencia Recursiva ---"
+    Escribir "Ingresa la base: "
+    Leer base
+    Escribir "Ingresa el exponente: "
+    Leer exponente
+    resEntero <- PotenciaRecursiva(base, exponente)
+    Escribir base, " ^ ", exponente, " = ", resEntero
+
+    // -------------- Probar SerieCollatz --------------
+    Escribir ""
+    Escribir "--- Probando Serie Collatz ---"
+    Escribir "Ingresa un valor para n: "
+    Leer n
+    resEntero <- SerieCollatz(n)
+
+FinProceso
